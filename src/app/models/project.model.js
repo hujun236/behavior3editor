@@ -122,6 +122,21 @@
       return $q(function(resolve, reject) {
         $window.editor.clearDirty();
         storageService.save(project.path, project);
+
+        if(project.data.trees != null)
+        {
+            
+            for(var j = 0; j < project.data.trees.length; j++) {
+             var t = project.data.trees[j]
+             var path = project.path.substring(0, project.path.lastIndexOf("\\") + 1) + t.title + ".txt";
+             storageService.save(path, t);
+          }
+        }
+
+
+
+
+
         _updateRecentProjects(project);
         resolve();
       });
