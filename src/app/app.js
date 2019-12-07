@@ -34,7 +34,14 @@ angular.module('app', [
 
     // initialize editor
     settingsModel.getSettings();
-    projectModel
+    $timeout(function() {
+      var element = angular.element(document.getElementById('page-preload'));
+      $animate.addClass(element, 'preload-fade')
+        .then(function() {
+          element.remove();
+        });
+    }, 500);
+    /*projectModel
       .getRecentProjects()
       .then(function(projects) {
         
@@ -57,6 +64,6 @@ angular.module('app', [
         } else {
           closePreload();
         }
-      });
+      });*/
   }
 ]);

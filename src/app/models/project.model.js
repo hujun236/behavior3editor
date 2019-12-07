@@ -41,9 +41,11 @@
 
     // BODY //
     function _saveRecentProjects() {
+      return;
       storageService.save(recentPath, recentCache);
     }
     function _updateRecentProjects(project) {
+      return;
       if (project) {
         for (var i=recentCache.length-1; i>=0; i--) {
           if (recentCache[i].path === project.path) {
@@ -121,7 +123,6 @@
       
       return $q(function(resolve, reject) {
         $window.editor.clearDirty();
-        storageService.save(project.path, project);
 
         if(project.data.trees != null)
         {
@@ -132,6 +133,15 @@
              storageService.save(path, t);
           }
         }
+
+        var tmp = project.path
+        project.path = "" ;
+        storageService.save(tmp, project);
+        project.path = tmp
+
+        
+
+        
 
 
 
@@ -145,6 +155,7 @@
       return $q(function(resolve, reject) {
         try {
           var project = storageService.load(path);
+          project["path"] = path;
           editorService.openProject(project.data);
           _setProject(project);
           resolve();
