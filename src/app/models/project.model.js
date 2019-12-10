@@ -156,6 +156,17 @@
         try {
           var project = storageService.load(path);
           project["path"] = path;
+          project.data.custom_nodes.sort(
+          function(a,b)
+          {
+             if(a.title < b.title)
+              {
+                return -1
+              }
+              else
+                return 1
+
+          })
           editorService.openProject(project.data);
           _setProject(project);
           resolve();
